@@ -56,3 +56,14 @@ To install docker-compose, just run the 2 following commands to download and add
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
+
+# 2. The application
+## Products
+```
+{
+    name: "iPhone X",
+    description: "This is a cool phone",
+    price: 999.99;
+    image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphoneX-silver_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1548459946146"
+}
+```

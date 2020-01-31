@@ -1,20 +1,72 @@
 version: '3.7'
 
 services:
-  mongo:
+  products-db:
     image: mongo
+    container_name: products-db
     restart: always
-    ports:
-      - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: nicwalle
+      MONGO_INITDB_ROOT_PASSWORD: wallenic
+      MONGO_INITDB_DATABASE: products
+    ports:
+      - 8002:27017
+    volumes:
+      - ../db-datas/products-db/mongo-volume:/data/db
+      - ./products/db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
-  mongo-express:
+  products-db-ui:
     image: mongo-express
+    container_name: products-db-ui
     restart: always
     ports:
-      - 8081:8081
+      - 8001:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_ADMINUSERNAME: nicwalle
+      ME_CONFIG_MONGODB_ADMINPASSWORD: wallenic
+      ME_CONFIG_MONGODB_SERVER: products-db
+
+  products-api:
+    build: ./products/
+    container_name: products-api
+    restart: always
+    environment:
+      - PRODUCTS_DB_URL=products-db
+      - PRODUCTS_DB_NAME=products
+      - JWT_SECRET=5c1v5fv5fd15gf5v2dsq1c65dc9ezq5v6c1t8rh98e5c5gd4hj4kg5
+    ports:
+      - 8000:80
+
+  users-db:
+    image: mongo
+    container_name: users-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: nicwalle
+      MONGO_INITDB_ROOT_PASSWORD: wallenic
+      MONGO_INITDB_DATABASE: users
+    volumes:
+      - ../db-datas/users-db/mongo-volume:/data/db
+      - ./users/db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  users-db-ui:
+    image: mongo-express
+    container_name: users-db-ui
+    restart: always
+    ports:
+      - 8011:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: nicwalle
+      ME_CONFIG_MONGODB_ADMINPASSWORD: wallenic
+      ME_CONFIG_MONGODB_SERVER: users-db
+
+  users-api:
+    build: ./users/
+    container_name: users-api
+    restart: always
+    environment:
+      - USERS_DB_URL=users-db
+      - USERS_DB_NAME=users
+      - JWT_SECRET=5c1v5fv5fd15gf5v2dsq1c65dc9ezq5v6c1t8rh98e5c5gd4hj4kg5
+    ports:
+      - 8010:80

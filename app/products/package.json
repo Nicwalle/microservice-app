@@ -1,0 +1,24 @@
+{
+  "name": "product-api",
+  "version": "1.0.0",
+  "description": "Catalog of products",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nicwalle/microservice-app"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Nicolas van de Walle <dev.nw@walle.be> (http://nicwalle.com)",
+  "license": "ISC"
+}
